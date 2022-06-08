@@ -186,4 +186,11 @@ export default class SinglyLinkedList<T> {
         }
         return output;
     }
+
+    /**
+     * @returns string representation of the list.
+     */
+     toString(): string {
+        return `[${this.toArray().toString()}]`;
+    }
 };
