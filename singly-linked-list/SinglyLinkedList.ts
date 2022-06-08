@@ -67,9 +67,10 @@ export default class SinglyLinkedList<T> {
         if(this.head === null) {
             this.head = newNode;
             this.tail = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head = newNode;
         }
-        newNode.next = this.head;
-        this.head = newNode;
         ++this._length;
     }
 
