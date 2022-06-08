@@ -173,6 +173,37 @@ export default class SinglyLinkedList<T> {
     }
 
     /**
+     * Inserts a new value into the list at a specified index
+     * @param val value to be added to list
+     * @param index index for value to be inserted at or null if index isn't valid
+     */
+    insert(val: T, index: number): SinglyLinkedList<T> | null {
+        if(index < 0 || index > this._length) return null;
+        
+        if(!this.head || index === this._length)
+            this.append(val);
+        else if(index === 0) 
+            this.prepend(val);
+        else {
+            let i = 0;
+            let curNode = this.head;
+            let prevNode = this.head;
+            let newNode = new ListNode(val);
+            while(curNode.next) {
+                curNode = curNode.next;
+                if(++i === index) {
+                    prevNode.next = newNode;
+                    newNode.next = curNode;
+                    return this;
+                }
+                prevNode = curNode;
+            }
+        }
+
+        return this;
+    }
+
+    /**
      * Returns an array of the items in the list.
      * @returns array containing items in the list.
      */
