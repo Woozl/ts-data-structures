@@ -130,6 +130,23 @@ export default class SinglyLinkedList<T> {
     }
 
     /**
+     * Returns the index of the first item found that matches `target` or
+     * zero if not in list.
+     * @param target The item to search for
+     */
+    find(target: T): number {
+        if(this.head === null) return -1;
+        let curNode: ListNode<T> | null = this.head;
+        let index = 0;
+        while(curNode) {
+            if(curNode.val === target) return index;
+            curNode = curNode.next;
+            ++index;
+        }
+        return -1;
+    }
+
+    /**
      * Returns an array of the items in the list.
      * @returns array containing items in the list.
      */
