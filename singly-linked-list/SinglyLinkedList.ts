@@ -175,7 +175,8 @@ export default class SinglyLinkedList<T> {
     /**
      * Inserts a new value into the list at a specified index
      * @param val value to be added to list
-     * @param index index for value to be inserted at or null if index isn't valid
+     * @param index index for value to be inserted at
+     * @returns reference to list or `null` if insert wasn't valid
      */
     insert(val: T, index: number): SinglyLinkedList<T> | null {
         if(index < 0 || index > this._length) return null;
