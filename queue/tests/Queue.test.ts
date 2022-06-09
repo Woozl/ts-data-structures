@@ -21,6 +21,20 @@ describe('Queue', () => {
         eq = Queue.from("");
         expect(eq.dequeue()).toBeNull();
     });
+
+    it('should return correct length', () => {
+        const q = Queue.from([1, 2, 3]);
+        expect(q.length).toBe(3);
+        q.dequeue();
+        expect(q.length).toBe(2);
+        q.dequeue();
+        q.dequeue();
+        expect(q.length).toBe(0);
+        q.enqueue(1);
+        expect(q.length).toBe(1);
+        q.peek();
+        expect(q.length).toBe(1);
+    });
     
     describe('enqueue', () => {
         it('should add item to an empty queue', () => {

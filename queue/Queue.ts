@@ -1,11 +1,15 @@
 import SinglyLinkedList from "../singly-linked-list/SinglyLinkedList";
 
 /**
- * Defines a generic queue where the first item added is the first
- * to come out.
+ * Defines a generic linked list based queue where 
+ * the first item added is the first to come out.
  */
 export default class Queue<T> {
     private queue: SinglyLinkedList<T>;
+
+    get length() {
+        return this.queue.length;
+    }
 
     constructor() {
         this.queue = new SinglyLinkedList<T>();
