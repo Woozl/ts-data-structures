@@ -227,11 +227,15 @@ describe('SinglyLinkedList', () => {
 
     describe('toArray', () => {
         it('should return array based on list', () => {
-            expect(SinglyLinkedList.from([1, 2, 3]).toArray()).toEqual([1, 2, 3]);
+            const ll = SinglyLinkedList.from([1, 2, 3]);
+            expect(ll.toArray()).toEqual([1, 2, 3]);
+            expect(ll.length).toBe(3);
         });
 
         it('should return empty array if list is empty', () => {
-            expect(SinglyLinkedList.from([]).toArray()).toEqual([]);
+            const ll = SinglyLinkedList.from([]);
+            expect(ll.toArray()).toEqual([]);
+            expect(ll.length).toBe(0);
         });
     });
 
