@@ -153,22 +153,23 @@ export default class SinglyLinkedList<T> {
      * @returns the item that was deleted or `null` if index is out of bounds.
      */
     delete(index: number): T | null{
-        if(!this.head || index < 0 || index >= this._length) return null;
-        if(index === 0) return this.shift();
-        if(index === this._length - 1) return this.pop();
-
-        let i = 0;
-        let curNode: ListNode<T> | null = this.head;
-        let prevNode = curNode;
-        while(curNode.next) {
-            curNode = curNode.next;
-            if(++i === index) {
-                prevNode.next = curNode.next;
-                curNode.next = null;
-                --this._length;
-                return curNode.val;
+        if(this.head && index >= 0 && index < this._length) {
+            if(index === 0) return this.shift();
+            if(index === this._length - 1) return this.pop();
+    
+            let i = 0;
+            let curNode: ListNode<T> | null = this.head;
+            let prevNode = curNode;
+            while(curNode.next) {
+                curNode = curNode.next;
+                if(++i === index) {
+                    prevNode.next = curNode.next;
+                    curNode.next = null;
+                    --this._length;
+                    return curNode.val;
+                }
+                prevNode = curNode;
             }
-            prevNode = curNode;
         }
         return null;
     }
