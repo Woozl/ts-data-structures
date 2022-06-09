@@ -196,6 +196,7 @@ export default class SinglyLinkedList<T> {
                 if(++i === index) {
                     prevNode.next = newNode;
                     newNode.next = curNode;
+                    ++this._length;
                     return this;
                 }
                 prevNode = curNode;
