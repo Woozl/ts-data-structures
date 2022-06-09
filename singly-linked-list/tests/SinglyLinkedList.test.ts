@@ -249,4 +249,16 @@ describe('SinglyLinkedList', () => {
             expect(ll.toString()).toBe("[]");
         });
     });
+
+    describe('isEmpty', () => {
+        it('should return true if the list is empty', () => {
+            const ll = SinglyLinkedList.from([]);
+            expect(ll.isEmpty()).toBe(true);
+        });
+
+        it('should return false if the list is not empty', () => {
+            const ll = SinglyLinkedList.from([1, 2, 3]);
+            expect(ll.isEmpty()).toBe(false);
+        });
+    });
 });

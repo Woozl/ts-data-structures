@@ -246,4 +246,12 @@ export default class SinglyLinkedList<T> {
      toString(): string {
         return `[${this.toArray().toString()}]`;
     }
+
+    /**
+     * @returns true if the list is empty
+     */
+    isEmpty(): boolean {
+        if(!this.head && !this.tail) return true;
+        else return false
+    }
 };
