@@ -127,6 +127,31 @@ describe('SinglyLinkedList', () => {
         });
     });
 
+    describe('get', () => {
+        let ll: SinglyLinkedList<number>;
+        beforeEach(() => {
+            ll = SinglyLinkedList.from([1, 2, 3, 4, 5, 6]);
+        });
+
+        it('should retrieve value from list', () => {
+            expect(ll.get(0)).toBe(1);
+            expect(ll.get(ll.length - 1)).toBe(6);
+            expect(ll.get(3)).toBe(4);
+        });
+
+        it('should not change list', () => {
+            ll.get(0);
+            ll.get(1);
+            ll.get(2);
+            expect(ll.toArray()).toEqual([1, 2, 3, 4, 5, 6]);
+        });
+
+        it('should return null if index is out of bounds', () => {
+            expect(ll.get(-1)).toBeNull();
+            expect(ll.get(ll.length)).toBeNull();
+        });
+    });
+
     describe('delete', () => {
         let ll: SinglyLinkedList<string>;
         beforeEach(() => {

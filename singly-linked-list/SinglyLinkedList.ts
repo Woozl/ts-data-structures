@@ -148,6 +148,24 @@ export default class SinglyLinkedList<T> {
     }
 
     /**
+     * Retrieves a value from the list at position `index` without
+     * deleting the node.
+     * @param index list position
+     * @returns value at `index` or `null` if index is invalid or list is empty
+     */
+    get(index: number): T | null {
+        if(this.head && index >= 0 && index < this._length) {
+            let i = 0;
+            let curNode: ListNode<T> | null = this.head;
+            while(curNode) {
+                if(i++ === index) return curNode.val;
+                curNode = curNode.next;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Deletes an item in the list based on it's index.
      * @param index the index of the item to be deleted
      * @returns the item that was deleted or `null` if index is out of bounds.
