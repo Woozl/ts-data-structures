@@ -132,15 +132,19 @@ export default class SinglyLinkedList<T> {
 
     /**
      * Returns the index of the first item found that matches `target` or
-     * zero if not in list.
+     * -1 if not in list. Can also use a callback function for more custom
+     * comparisons.
      * @param target The item to search for
+     * @param cb callback function that passes the node's value for in depth
+     * comparison. `find` will return the index when the callback returns true
      */
-    find(target: T): number {
+    find({ target , cb }: { target?: any, cb?: (val: T) => {} }): number {
         if(this.head === null) return -1;
         let curNode: ListNode<T> | null = this.head;
         let index = 0;
         while(curNode) {
-            if(curNode.val === target) return index;
+            if(target !== undefined && curNode.val === target) return index;
+            if(cb !== undefined && cb(curNode.val)) return index;
             curNode = curNode.next;
             ++index;
         }

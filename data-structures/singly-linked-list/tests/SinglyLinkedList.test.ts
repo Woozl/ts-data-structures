@@ -112,18 +112,26 @@ describe('SinglyLinkedList', () => {
         });
 
         it('should return index of value in list', () => {
-            expect(ll.find(3)).toBe(2);
-            expect(ll.find(1)).toBe(0);
-            expect(ll.find(5)).toBe(4);
+            expect(ll.find({target: 3})).toBe(2);
+            expect(ll.find({target: 1})).toBe(0);
+            expect(ll.find({target: 5})).toBe(4);
         });
 
         it('should return -1 if the item is not in the list', () => {
-            expect(ll.find(6)).toBe(-1);
-            expect(ll.find(-1)).toBe(-1);
+            expect(ll.find({target: 6})).toBe(-1);
+            expect(ll.find({target: -1})).toBe(-1);
         });
 
         it('should return -1 if the list is empty', () => {
-            expect(SinglyLinkedList.from("").find("s")).toBe(-1);
+            expect(SinglyLinkedList.from("").find({target: 's'})).toBe(-1);
+        });
+
+        it('should accept a callback for value comparison', () => {
+            let customLL = new SinglyLinkedList<{id: number, name: string}>();
+            customLL.append({id: 346, name: "Billy Bob"});
+            customLL.append({id: 272, name: "Jimmy Jobs"});
+            customLL.append({id: 967, name: "Timmy Tobs"});
+            expect(customLL.find({ cb: (val) => val.name.includes("immy") })).toBe(1);
         });
     });
 
