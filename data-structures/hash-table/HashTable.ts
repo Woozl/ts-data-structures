@@ -12,6 +12,10 @@ const P = 7;
 export default class HashTable<T> {
     private buckets: Array<SinglyLinkedList<{key: string, val: T}>>;
 
+    /**
+     * Generates a hash table with a custom number of buckets
+     * @param numBuckets higher count will result in less collisions
+     */
     constructor(numBuckets=NUM_BUCKETS) {
         this.buckets = new Array(numBuckets).fill(null).map(v => new SinglyLinkedList<{key: string, val: T}>());
     }
@@ -70,6 +74,11 @@ export default class HashTable<T> {
         return searchList.get(searchIndex)!.val;
     }
 
+    /**
+     * Returns a 2d array representing the buckets filled either null or another
+     * array of the collided items
+     * @returns an array with each bucket represented by an array of items
+     */
     toArray(): Array<Array<{key: string, val: T}>> {
         let out = new Array(this.buckets.length).fill(null);
         this.buckets.forEach((ll, i) => {
