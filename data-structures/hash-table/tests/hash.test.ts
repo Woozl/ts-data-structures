@@ -19,4 +19,8 @@ describe('polynomialRollingHash', () => {
         });
         expect(buckets.every(bucket => bucket <= 2)).toBe(true);
     });
+
+    it('should throw an error for p and m less than 1', () => {
+        expect(() => polynomialRollingHash('word', 0, -1)).toThrowError();
+    });
 });
