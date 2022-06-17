@@ -66,6 +66,91 @@ export default class BinarySearchTree<T> {
     }
 
     /**
+     * Deletes the first node encountered with the value equal to `val`
+     * @param val value of node to delete
+     * @returns the deleted node or null if the value is not in the tree
+     */
+    delete(val: T): BinaryTreeNode<T> | null {
+        if(this.root === null) return null;
+
+        let deleteNode: BinaryTreeNode<T> | null = this.root;
+        let parentNode = this.root;
+        while(deleteNode !== null && deleteNode.value !== val) {
+            parentNode = deleteNode;
+
+            if(this.sort(val, deleteNode.value) < 0)
+                deleteNode = deleteNode.left;
+            else
+                deleteNode = deleteNode.right;
+        }
+
+        // if the delete value wasn't found in the tree
+        if(deleteNode === null || deleteNode.value !== val) return null;
+
+        // case 1: the node to be deleted is the root and has no children
+        if(deleteNode === this.root && deleteNode.left === null && deleteNode.right === null) {
+            const deleteCopy = deleteNode;
+            this.root = null;
+            return deleteCopy;
+        }
+        
+        // case 2: if the node to be deleted has no children
+        if(deleteNode.left === null && deleteNode.right === null) {
+            if(this.sort(val, parentNode.value) < 0)
+                parentNode.left = null;
+            else
+                parentNode.right = null;
+
+            return deleteNode;
+        }
+
+        // case 3: node has one child
+        if((deleteNode.left !== null && deleteNode.right === null) ||
+           (deleteNode.left === null && deleteNode.right !== null)) {
+            if(deleteNode === this.root) 
+                this.root = deleteNode.left || deleteNode.right;
+            else if(this.sort(val, parentNode.value) < 0)
+                parentNode.left = deleteNode.left || deleteNode.right;
+            else
+                parentNode.right = deleteNode.left || deleteNode.right;
+
+            return deleteNode;
+        }
+
+        // case 4: node has two children
+        if(deleteNode.left !== null && deleteNode.right !== null) {
+            // find inorder successor
+            let inorderSuccessor = deleteNode.right;
+            let inorderParent = deleteNode;
+            while(inorderSuccessor.left !== null) {
+                inorderParent = inorderSuccessor;
+                inorderSuccessor = inorderSuccessor.left;
+            }
+            
+            // copy inorder successor's value to the node to be deleted
+            deleteNode.value = inorderSuccessor.value; 
+            
+            // remove inorder successor:
+
+            // inorder successor has one child
+            if(inorderSuccessor.left === null && inorderSuccessor.right === null) {
+                if(this.sort(inorderSuccessor.value, inorderParent.value) < 0)
+                    inorderParent.left = null;
+                else
+                    inorderParent.right = null;
+            }
+            // inorder successor has right child
+            if(inorderSuccessor.left === null && inorderSuccessor.right !== null) {
+                inorderParent.right = inorderSuccessor.right;
+            }
+
+            return deleteNode;
+        }
+
+        return null;
+    }
+
+    /**
      * Traverses the tree in-order (Left, Node, Right)
      * @example
      * ```txt
