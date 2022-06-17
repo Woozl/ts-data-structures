@@ -2,12 +2,18 @@ import ListNode from "../../singly-linked-list/ListNode";
 import BinaryTreeNode from "./BinaryTreeNode";
 
 export default class BinarySearchTree<T> {
-    root: BinaryTreeNode<T> | null;
-    sort: (a: T, b: T) => number;
+    private root : BinaryTreeNode<T> | null;
+    private readonly sort: (a: T, b: T) => number;
 
     constructor(sort: (a: T, b: T) => number) {
         this.root = null;
         this.sort = sort;
+    }
+
+    static from<T>(it: Iterable<T>, sort: (a: T, b: T) => number): BinarySearchTree<T> {
+        const bst = new BinarySearchTree<T>(sort);
+        for(const item of it) bst.insert(item);
+        return bst;
     }
 
     insert(val: T): BinaryTreeNode<T> {
@@ -91,7 +97,7 @@ export default class BinarySearchTree<T> {
         if(deleteNode === this.root && deleteNode.left === null && deleteNode.right === null) {
             const deleteCopy = deleteNode;
             this.root = null;
-            return deleteCopy;
+            return new BinaryTreeNode<T>(deleteCopy.value);
         }
         
         // case 2: if the node to be deleted has no children
@@ -101,7 +107,7 @@ export default class BinarySearchTree<T> {
             else
                 parentNode.right = null;
 
-            return deleteNode;
+            return new BinaryTreeNode<T>(deleteNode.value);
         }
 
         // case 3: node has one child
@@ -114,7 +120,7 @@ export default class BinarySearchTree<T> {
             else
                 parentNode.right = deleteNode.left || deleteNode.right;
 
-            return deleteNode;
+            return new BinaryTreeNode<T>(deleteNode.value);
         }
 
         // case 4: node has two children
@@ -144,7 +150,7 @@ export default class BinarySearchTree<T> {
                 inorderParent.right = inorderSuccessor.right;
             }
 
-            return deleteNode;
+            return new BinaryTreeNode<T>(deleteNode.value);
         }
 
         return null;
@@ -185,6 +191,8 @@ export default class BinarySearchTree<T> {
     }
 
     preorder(): T[] {
+        if(this.root === null) return [];
+
         return [];
     }
 
