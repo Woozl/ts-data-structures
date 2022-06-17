@@ -1,4 +1,3 @@
-import ListNode from "../../singly-linked-list/ListNode";
 import BinaryTreeNode from "./BinaryTreeNode";
 
 export default class BinarySearchTree<T> {
