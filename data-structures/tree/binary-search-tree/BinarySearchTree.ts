@@ -164,8 +164,8 @@ export default class BinarySearchTree<T> {
      *    /   \
      *   1     5
      *  / \   / \
-     * 0   3 4   6
-     * In-order: 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
+     * 0   2 4   6
+     * In-order: [0, 1, 2, 3, 4, 5, 6]
      * ```
      * @returns an array containg the values of the tree
      * in-order
@@ -190,10 +190,37 @@ export default class BinarySearchTree<T> {
         return vals;
     }
 
+    /**
+     * Traverses the tree pre-order (Node, Left, Right)
+     * @example
+     * ```txt
+     *      3
+     *    /   \
+     *   1     5
+     *  / \   / \
+     * 0   2 4   6
+     * Pre-order: [3, 1, 0, 2, 5, 4, 6]
+     * ```
+     * @returns an array containg the values of the tree
+     * pre-order
+     */
     preorder(): T[] {
         if(this.root === null) return [];
 
-        return [];
+        const vals: T[] = []; 
+        
+        const stack: BinaryTreeNode<T>[] = []
+        stack.push(this.root);
+        
+        while(stack.length > 0) {
+            const popped = stack.pop()!;
+            vals.push(popped.value);
+
+            if(popped.right) stack.push(popped.right);
+            if(popped.left) stack.push(popped.left); 
+        }
+
+        return vals;
     }
 
     postorder(): T[] {
