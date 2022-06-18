@@ -133,6 +133,7 @@ export default class BinarySearchTree<T> {
             }
             
             // copy inorder successor's value to the node to be deleted
+            const deleteValue = deleteNode.value;
             deleteNode.value = inorderSuccessor.value; 
             
             // remove inorder successor:
@@ -149,7 +150,7 @@ export default class BinarySearchTree<T> {
                 inorderParent.right = inorderSuccessor.right;
             }
 
-            return new BinaryTreeNode<T>(deleteNode.value);
+            return new BinaryTreeNode<T>(deleteValue);
         }
 
         return null;
