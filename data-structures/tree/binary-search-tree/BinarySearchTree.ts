@@ -111,12 +111,15 @@ export default class BinarySearchTree<T> {
             // case 3: node has one child
             if((deleteNode.left !== null && deleteNode.right === null) ||
                 (deleteNode.left === null && deleteNode.right !== null)) {
+
+                const deleteChild = deleteNode.left ? deleteNode.left : deleteNode.right;
+                
                 if(deleteNode === this.root) 
                     this.root = deleteNode.left || deleteNode.right;
                 else if(this.sort(val, parentNode.value) < 0)
-                    parentNode.left = deleteNode.left || deleteNode.right;
+                    parentNode.left = deleteChild;
                 else
-                    parentNode.right = deleteNode.left || deleteNode.right;
+                    parentNode.right = deleteChild;
     
                 return new BinaryTreeNode<T>(deleteNode.value);
             }
