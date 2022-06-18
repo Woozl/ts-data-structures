@@ -222,8 +222,45 @@ export default class BinarySearchTree<T> {
         return vals;
     }
 
+    /**
+     * Traverses the tree post-order (Left, Right, Node)
+     * @example
+     * ```txt
+     *      3
+     *    /   \
+     *   1     5
+     *  / \   / \
+     * 0   2 4   6
+     * Post-order: [0, 2, 1, 4, 6, 5, 3]
+     * ```
+     * @returns an array containg the values of the tree
+     * post-order
+     */
     postorder(): T[] {
-        return[];
+        if(this.root === null) return [];
+
+        // Two stack method:
+        const stackA: BinaryTreeNode<T>[] = [];
+        const stackB: T[] = [];
+
+        // push root to stackA
+        stackA.push(this.root);
+
+        // while nodes in stackA, pop the value and push to stackB
+        // add left child of popped node, then right.
+        // in this way, when nodes are removed from stackB, they are in
+        // the correct order (right, left, node) 
+        while(stackA.length > 0) {
+            const popped = stackA.pop()!;
+            stackB.push(popped.value);
+
+            if(popped.left) stackA.push(popped.left);
+            if(popped.right) stackA.push(popped.right);
+        }
+
+        // instead of popping all the values of stackB to get the correct
+        // ordering, we can just reverse the array representing the stack
+        return stackB.reverse();
     }
 
     /**
