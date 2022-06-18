@@ -3,9 +3,9 @@ export default class BinaryTreeNode<T> {
     left: BinaryTreeNode<T> | null;
     right: BinaryTreeNode<T> | null;
 
-    constructor(value: T, left=null, right=null) {
+    constructor(value: T, left?: BinaryTreeNode<T>, right?: BinaryTreeNode<T>) {
         this.value = value;
-        this.left = left;
-        this.right = right;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
     }
 }
