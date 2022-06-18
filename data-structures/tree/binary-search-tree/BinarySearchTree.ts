@@ -291,27 +291,29 @@ export default class BinarySearchTree<T> {
         }
 
         const printTree = (node: BinaryTreeNode<T> | null, prefix: string, last: boolean) => {
-            if(node === null) return;
+            if(node !== null) {
 
-            let printString = prefix;
-            if(last) {
-                printString += "╰── ";
-                prefix += "    ";
-            } else {
-                printString += "├── ";
-                prefix += "│   ";
-            }
-            console.log(printString + node.value);
-            
-            if(node.right && node.left) {
-                printTree(node.right, prefix, false);
-                printTree(node.left, prefix, true);
-            } 
-            else if(node.right || node.left) {
-                printTree(node.right || node.left, prefix, true);
-            }
-            else {
-                return;
+                let printString = prefix;
+                if(last) {
+                    printString += "╰── ";
+                    prefix += "    ";
+                } else {
+                    printString += "├── ";
+                    prefix += "│   ";
+                }
+                console.log(printString + node.value);
+                
+                if(node.right && node.left) {
+                    printTree(node.right, prefix, false);
+                    printTree(node.left, prefix, true);
+                } 
+                else if(node.right || node.left) {
+                    printTree(node.right || node.left, prefix, true);
+                }
+                else {
+                    return;
+                }
+
             }
         }
         
