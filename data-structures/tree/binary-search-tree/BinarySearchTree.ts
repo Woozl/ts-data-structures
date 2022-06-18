@@ -138,7 +138,7 @@ export default class BinarySearchTree<T> {
             
             // remove inorder successor:
 
-            // inorder successor has one child
+            // inorder successor has no children
             if(inorderSuccessor.left === null && inorderSuccessor.right === null) {
                 if(this.sort(inorderSuccessor.value, inorderParent.value) < 0)
                     inorderParent.left = null;
@@ -147,7 +147,10 @@ export default class BinarySearchTree<T> {
             }
             // inorder successor has right child
             if(inorderSuccessor.left === null && inorderSuccessor.right !== null) {
-                inorderParent.right = inorderSuccessor.right;
+                if(this.sort(inorderSuccessor.value, inorderParent.value) < 0)
+                    inorderParent.left = inorderSuccessor.right;
+                else
+                    inorderParent.right = inorderSuccessor.right;
             }
 
             return new BinaryTreeNode<T>(deleteValue);
