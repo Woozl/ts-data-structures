@@ -1,20 +1,50 @@
 import BinaryTreeNode from "./BinaryTreeNode";
 
+/**
+ * Defines a Binary Search Tree where the left child has a value less
+ * than the parent, and the right child has a greater value. Sorting is 
+ * done with provided callback function. Provides no mechanism to balance
+ * the tree, so the worst case time complexity for searching, inserting
+ * and deleting is O(h), where h is the height of the tree.
+ */
 export default class BinarySearchTree<T> {
     private root : BinaryTreeNode<T> | null;
     private readonly sort: (a: T, b: T) => number;
 
+    /**
+     * Creates a new binary search tree with user provided
+     * sort function for determining node placement.
+     * @param sort callback function that returns:
+     *     - positive number for a > b
+     *     - 0 for a === b
+     *     - negative number for a < b
+     */
     constructor(sort: (a: T, b: T) => number) {
         this.root = null;
         this.sort = sort;
     }
 
+    /**
+     * Creates a new `BinarySearchTree` from an `Iterable`
+     * @param it `Iterable` to construct tree from. Nodes are
+     * added in the order of iteration
+     * @param sort `callback function that returns:
+     *     - positive number for a > b
+     *     - 0 for a === b
+     *     - negative number for a < b
+     * @returns `BinarySearchTree`
+     */
     static from<T>(it: Iterable<T>, sort: (a: T, b: T) => number): BinarySearchTree<T> {
         const bst = new BinarySearchTree<T>(sort);
         for(const item of it) bst.insert(item);
         return bst;
     }
 
+    /**
+     * Inserts a value into the tree
+     * @param val the value to add to the tree
+     * @returns a reference to the added node
+     */
     insert(val: T): BinaryTreeNode<T> {
         if(this.root === null) {
             this.root = new BinaryTreeNode(val);
@@ -47,7 +77,8 @@ export default class BinarySearchTree<T> {
     }
 
     /**
-     * 
+     * Finds the first node with a given value and returns a reference
+     * to it, without deleting the node.
      * @param val value to search the tree for
      * @returns the `BinaryTreeNode`, or `null` if not found
      */
