@@ -220,6 +220,18 @@ describe('BinarySearchTree', () => {
         });       
     });
 
+    describe('levelOrder', () => {
+        it('should return an empty array if tree is empty', () => {
+            const tree = new BinarySearchTree<number>((a,b)=>a-b);
+            expect(tree.levelOrder()).toEqual([]);
+        });
+
+        it('should traverse a tree level order', () => {
+            const tree = BinarySearchTree.from([3, 1, 0, 2, 8, 6, 5, 7, 4], (a,b)=>a-b)
+            expect(tree.levelOrder()).toEqual([3, 1, 8, 0, 2, 6, 5, 7, 4]);
+        });       
+    });
+
     describe('isEmpty', () => {
         it('should return true if the tree is empty', () => {
             const tree = new BinarySearchTree<number>((a,b)=>a-b);
