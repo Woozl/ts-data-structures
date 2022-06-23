@@ -205,7 +205,7 @@ export default class BinarySearchTree<T> {
      * @returns an array containg the values of the tree
      * in-order
      */
-    inorder(): T[] {
+    inOrder(): T[] {
         if(this.root === null) return [];
         const vals: T[] = [];
 
@@ -239,7 +239,7 @@ export default class BinarySearchTree<T> {
      * @returns an array containg the values of the tree
      * pre-order
      */
-    preorder(): T[] {
+    preOrder(): T[] {
         if(this.root === null) return [];
 
         const vals: T[] = []; 
@@ -272,7 +272,7 @@ export default class BinarySearchTree<T> {
      * @returns an array containg the values of the tree
      * post-order
      */
-    postorder(): T[] {
+    postOrder(): T[] {
         if(this.root === null) return [];
 
         // Two stack method:
