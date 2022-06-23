@@ -18,7 +18,7 @@ describe('BinarySearchTree', () => {
     });
 
     it('should store and traverse nodes in order', () => {
-        let arr = [];
+        let arr: number[] = [];
         let bst = new BinarySearchTree<number>((a,b) => a-b);
         for(let i = 0; i < 100; ++i) {
             arr.push(i);
