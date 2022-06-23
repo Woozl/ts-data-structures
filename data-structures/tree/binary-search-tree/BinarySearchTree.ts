@@ -1,3 +1,4 @@
+import ListNode from "../../singly-linked-list/ListNode";
 import BinaryTreeNode from "./BinaryTreeNode";
 
 /**
@@ -296,6 +297,41 @@ export default class BinarySearchTree<T> {
         // instead of popping all the values of stackB to get the correct
         // ordering, we can just reverse the array representing the stack
         return stackB.reverse();
+    }
+
+    /**
+     * Traverses the tree level-order (breadth-first)
+     * @example
+     * ```txt
+     *      3
+     *    /   \
+     *   1     5
+     *  / \   / \
+     * 0   2 4   6
+     * Post-order: [3, 1, 5, 0, 2, 4, 6]
+     * ```
+     * @returns an array containg the values of the tree
+     * level-order
+     */
+    levelOrder(): T[] {
+        if(this.root === null) return [];
+
+        const out: T[] = [];
+        const queue: BinaryTreeNode<T>[] = [];
+
+        let currentNode = this.root;
+        queue.push(currentNode);
+
+        while(queue.length > 0) {
+            const dequeued = queue.shift()!;
+
+            out.push(dequeued.value);
+
+            if(dequeued.left !== null) queue.push(dequeued.left);
+            if(dequeued.right !== null) queue.push(dequeued.right);
+        }
+
+        return out;
     }
 
     /**
