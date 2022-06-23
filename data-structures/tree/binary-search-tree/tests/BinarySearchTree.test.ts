@@ -24,21 +24,21 @@ describe('BinarySearchTree', () => {
             arr.push(i);
             bst.insert(i);
         }
-        expect(bst.inorder()).toEqual(arr);
+        expect(bst.inOrder()).toEqual(arr);
     });
 
     it('should sort tree according to sort callback', () => {
         const strings = BinarySearchTree.from(['swing', 'play', 'laugh', 'ride'], (a,b) => a.localeCompare(b));
-        expect(strings.inorder()).toEqual(['laugh', 'play', 'ride', 'swing']);
+        expect(strings.inOrder()).toEqual(['laugh', 'play', 'ride', 'swing']);
 
         const numbers = BinarySearchTree.from([3, 1, 0, 2, 8, 6, 5, 4, 7], (a,b) => a-b);
-        expect(numbers.inorder()).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+        expect(numbers.inOrder()).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     });
 
     describe('from', () => {
         it('should create a new BinarySearchTree from an Iterable', () => { 
             const bst = BinarySearchTree.from([10, 5, 15, 23, 11, 32, 49, 4, 2, 16], (a,b)=>a-b);
-            expect(bst.inorder()).toEqual([2, 4, 5, 10, 11, 15, 16, 23, 32, 49]);
+            expect(bst.inOrder()).toEqual([2, 4, 5, 10, 11, 15, 16, 23, 32, 49]);
         });
     });
 
@@ -65,7 +65,7 @@ describe('BinarySearchTree', () => {
             tree.insert(9);
             tree.insert(-1);
             tree.insert(2.5);
-            expect(tree.inorder()).toEqual([-1, 0, 1, 2, 2.5, 3, 6, 8, 9]);
+            expect(tree.inOrder()).toEqual([-1, 0, 1, 2, 2.5, 3, 6, 8, 9]);
         });
     });
 
@@ -124,13 +124,13 @@ describe('BinarySearchTree', () => {
         it('should delete the root node with one child', () => {
             const tree = BinarySearchTree.from([1, 2], (a,b)=>a-b);
             expect(tree.delete(1)?.value).toBe(1);
-            expect(tree.inorder()).toEqual([2]);
+            expect(tree.inOrder()).toEqual([2]);
         });
 
-        it('should delete node with two children where the inorder successor has right child', () => {
+        it('should delete node with two children where the inOrder successor has right child', () => {
             const tree = BinarySearchTree.from([3, 1, 8, 6, 7], (a,b)=>a-b);
             expect(tree.delete(3)?.value).toBe(3);
-            expect(tree.inorder()).toEqual([1, 6, 7, 8]);
+            expect(tree.inOrder()).toEqual([1, 6, 7, 8]);
         });
 
         let tree: BinarySearchTree<number>;
@@ -144,79 +144,79 @@ describe('BinarySearchTree', () => {
 
         it('should delete leaf nodes', () => {
             expect(tree.delete(0)?.value).toBe(0);
-            expect(tree.inorder()).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+            expect(tree.inOrder()).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
             expect(tree.delete(2)?.value).toBe(2);
-            expect(tree.inorder()).toEqual([1, 3, 4, 5, 6, 7, 8]);
+            expect(tree.inOrder()).toEqual([1, 3, 4, 5, 6, 7, 8]);
             expect(tree.delete(4)?.value).toBe(4);
-            expect(tree.inorder()).toEqual([1, 3, 5, 6, 7, 8]);
+            expect(tree.inOrder()).toEqual([1, 3, 5, 6, 7, 8]);
             expect(tree.delete(7)?.value).toBe(7);
-            expect(tree.inorder()).toEqual([1, 3, 5, 6, 8]);
+            expect(tree.inOrder()).toEqual([1, 3, 5, 6, 8]);
         });
 
         it('should delete nodes with one child', () => {
             expect(tree.delete(5)?.value).toBe(5);
-            expect(tree.inorder()).toEqual([0, 1, 2, 3, 4, 6, 7, 8]);
+            expect(tree.inOrder()).toEqual([0, 1, 2, 3, 4, 6, 7, 8]);
             expect(tree.delete(8)?.value).toBe(8);
-            expect(tree.inorder()).toEqual([0, 1, 2, 3, 4, 6, 7]);
+            expect(tree.inOrder()).toEqual([0, 1, 2, 3, 4, 6, 7]);
             expect(tree.delete(2)?.value).toBe(2); // no children
-            expect(tree.inorder()).toEqual([0, 1, 3, 4, 6, 7]);
+            expect(tree.inOrder()).toEqual([0, 1, 3, 4, 6, 7]);
             expect(tree.delete(1)?.value).toBe(1);
-            expect(tree.inorder()).toEqual([0, 3, 4, 6, 7]);
+            expect(tree.inOrder()).toEqual([0, 3, 4, 6, 7]);
             expect(tree.delete(0)?.value).toBe(0); // no children
-            expect(tree.inorder()).toEqual([3, 4, 6, 7]);
+            expect(tree.inOrder()).toEqual([3, 4, 6, 7]);
             expect(tree.delete(3)?.value).toBe(3);
-            expect(tree.inorder()).toEqual([4, 6, 7]);
+            expect(tree.inOrder()).toEqual([4, 6, 7]);
         });
 
         it('should delete nodes with two children', () => {
             expect(tree.delete(6)?.value).toBe(6);
-            expect(tree.inorder()).toEqual([0, 1, 2, 3, 4, 5, 7, 8]);
+            expect(tree.inOrder()).toEqual([0, 1, 2, 3, 4, 5, 7, 8]);
             expect(tree.delete(3)?.value).toBe(3);
-            expect(tree.inorder()).toEqual([0, 1, 2, 4, 5, 7, 8]);
+            expect(tree.inOrder()).toEqual([0, 1, 2, 4, 5, 7, 8]);
             expect(tree.delete(4)?.value).toBe(4);
-            expect(tree.inorder()).toEqual([0, 1, 2, 5, 7, 8]);
+            expect(tree.inOrder()).toEqual([0, 1, 2, 5, 7, 8]);
             expect(tree.delete(1)?.value).toBe(1);
-            expect(tree.inorder()).toEqual([0, 2, 5, 7, 8]);
+            expect(tree.inOrder()).toEqual([0, 2, 5, 7, 8]);
             expect(tree.delete(5)?.value).toBe(5);
-            expect(tree.inorder()).toEqual([0, 2, 7, 8]);
+            expect(tree.inOrder()).toEqual([0, 2, 7, 8]);
             expect(tree.delete(7)?.value).toBe(7);
-            expect(tree.inorder()).toEqual([0, 2, 8]);
+            expect(tree.inOrder()).toEqual([0, 2, 8]);
         });
     });
 
-    describe('inorder', () => {
+    describe('inOrder', () => {
         it('should return an empty array if tree is empty', () => {
             const tree = new BinarySearchTree<number>((a,b)=>a-b);
-            expect(tree.inorder()).toEqual([]);
+            expect(tree.inOrder()).toEqual([]);
         });
 
-        it('should traverse a tree inorder', () => {
+        it('should traverse a tree inOrder', () => {
             const tree = BinarySearchTree.from([3, 1, 0, 2, 8, 6, 5, 7, 4], (a,b)=>a-b)
-            expect(tree.inorder()).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+            expect(tree.inOrder()).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
         });
     });
 
-    describe('preorder', () => {
+    describe('preOrder', () => {
         it('should return an empty array if tree is empty', () => {
             const tree = new BinarySearchTree<number>((a,b)=>a-b);
-            expect(tree.preorder()).toEqual([]);
+            expect(tree.preOrder()).toEqual([]);
         });
         
-        it('should traverse a tree preorder', () => {
+        it('should traverse a tree preOrder', () => {
             const tree = BinarySearchTree.from([3, 1, 0, 2, 8, 6, 5, 7, 4], (a,b)=>a-b)
-            expect(tree.preorder()).toEqual([3, 1, 0, 2, 8, 6, 5, 4, 7]);
+            expect(tree.preOrder()).toEqual([3, 1, 0, 2, 8, 6, 5, 4, 7]);
         });        
     });
 
-    describe('postorder', () => {
+    describe('postOrder', () => {
         it('should return an empty array if tree is empty', () => {
             const tree = new BinarySearchTree<number>((a,b)=>a-b);
-            expect(tree.postorder()).toEqual([]);
+            expect(tree.postOrder()).toEqual([]);
         });
 
-        it('should traverse a tree postorder', () => {
+        it('should traverse a tree postOrder', () => {
             const tree = BinarySearchTree.from([3, 1, 0, 2, 8, 6, 5, 7, 4], (a,b)=>a-b)
-            expect(tree.postorder()).toEqual([0, 2, 1, 4, 5, 7, 6, 8, 3]);
+            expect(tree.postOrder()).toEqual([0, 2, 1, 4, 5, 7, 6, 8, 3]);
         });       
     });
 
