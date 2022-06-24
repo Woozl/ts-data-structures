@@ -46,7 +46,13 @@ export default class HashTable<T> {
      * @param value
      */
     set(key: string, value: T) {
-        this.buckets[this.hash(key)].append({key: key, val: value});
+        const currentBucket = this.buckets[this.hash(key)];
+        const listIndex = currentBucket.find({cb: listItem => listItem.key === key});
+        
+        if(listIndex !== -1)
+            currentBucket.delete(listIndex);
+
+        currentBucket.append({key: key, val: value});
     }
 
     /**
