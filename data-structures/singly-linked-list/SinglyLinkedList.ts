@@ -81,7 +81,15 @@ export default class SinglyLinkedList<T> {
     shift(): T | null {
         if(this.head === null) return null;
         const val = this.head.val;
-        this.head = this.head.next;
+
+        if(this.head === this.tail) {
+            this.head = null;
+            this.tail = null;
+        }
+        else {
+            this.head = this.head.next;
+        }
+
         --this._length;
         return val;
     }
