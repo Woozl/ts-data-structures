@@ -61,9 +61,9 @@ describe('HashTable', () => {
 
     describe('getCollisionArray', () => {
         it('should output collision array with correct number of items', () => {
-            let words = ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'hen'];
+            const words = new Set(['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'hen']);
             words.forEach(w => ht.set(w, 0));
-            expect(ht.getCollisionArray().reduce((prev, cur) => prev + cur)).toBe(words.length);
+            expect(ht.getCollisionArray().reduce((prev, cur) => prev + cur)).toBe(words.size);
         });
     });
 });
