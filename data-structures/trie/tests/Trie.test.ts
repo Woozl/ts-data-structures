@@ -56,6 +56,44 @@ describe('Trie', () => {
             expect(t.hasWord('hello')).toBe(false);
         });
 
+        it('should delete a string without impacting other strings with the same prefix', () => {
+            t.insert('answer');
+            t.insert('any');
+            t.insert('app');
+            t.insert('apple');
+            t.delete('apple')
+            expect(t.hasWord('app')).toBe(true);
+            expect(t.hasWord('apple')).toBe(false);
+            t.delete('answer')
+            expect(t.hasWord('any')).toBe(true);
+            expect(t.hasWord('answer')).toBe(false);
+        });
+
+        it('should not change the Trie if a key that doesn\'t exist is requested', () => {
+            t.insert('strength');
+            t.insert('strenuous');
+            t.insert('stripe');
+            t.insert('fourth');
+            t.insert('four');
+
+            expect(t.hasWord('found')).toBe(false);
+            t.delete('found');
+            expect(t.hasWord('found')).toBe(false);
+
+            t.delete('str')
+            expect(t.hasWord('strength')).toBe(true);
+            expect(t.hasWord('strenuous')).toBe(true);
+            expect(t.hasWord('stripe')).toBe(true);
+
+            t.delete('f')
+            expect(t.hasWord('fourth')).toBe(true);
+            expect(t.hasWord('four')).toBe(true);
+
+            t.delete('fou')
+            expect(t.hasWord('fourth')).toBe(true);
+            expect(t.hasWord('four')).toBe(true);
+        });
+
         it('should not delete the prefix of a word', () => {
             t.insert('apple');
             t.delete('app');
