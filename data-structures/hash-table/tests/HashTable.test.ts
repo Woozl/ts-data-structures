@@ -25,6 +25,20 @@ describe('HashTable', () => {
         expect(ht.search('drop')).toBe(2);
     });
 
+    describe('set', () => {
+        it('should set a value and retrieve it', () => {
+            ht.set('word', 0);
+            expect(ht.search('word')).toBe(0);
+        });
+
+        it('should replace an existing value if the key already exists', () => {
+            ht.set('the', 0);
+            expect(ht.search('the')).toBe(0);
+            ht.set('the', 1);
+            expect(ht.search('the')).toBe(1);
+        });
+    });
+
     describe('search', () => {
     
         it('should return null if there is no value for a key', () => {
