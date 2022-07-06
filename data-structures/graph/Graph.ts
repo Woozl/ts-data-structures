@@ -72,6 +72,18 @@ export default class Graph<T> {
         return res;
     }
 
+    getEdgeList(): T[][] {
+        const res: T[][] = [];
+        this.adjacencyTable.forEach((destTable, sourceNode) => {
+            if(destTable) {
+                destTable.forEach((_, targetNode) => {
+                    res.push([sourceNode, targetNode]);
+                });
+            }
+        });
+        return res;
+    }
+
     print(printWeight = false) {
         this.adjacencyTable.forEach((destTable, sourceNode) => {
             let str = `${sourceNode} → `;
