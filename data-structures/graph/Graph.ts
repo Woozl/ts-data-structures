@@ -63,6 +63,15 @@ export default class Graph<T> {
         return this.adjacencyTable.get(u)?.get(v) ?? null;
     }
 
+    getNeighbors(v: T): T[] {
+        if(!this.adjacencyTable.has(v))
+            return [];
+
+        const res: T[] = [];
+        this.adjacencyTable.get(v)!.forEach((_, node) => res.push(node));
+        return res;
+    }
+
     print(printWeight = false) {
         this.adjacencyTable.forEach((destTable, sourceNode) => {
             let str = `${sourceNode} → `;
@@ -86,14 +95,3 @@ export default class Graph<T> {
         });
     }
 }
-
-/*
-
-
-A -> [B: 1, C: 2]
-B -> null
-C -> 
-D
-
-
-*/
