@@ -48,6 +48,9 @@ export default class Graph<T> {
         if(!this.adjacencyTable.has(u) || !this.adjacencyTable.has(v))
             return false;
 
+        if(this.adjacencyTable.get(u) === null)
+            return false;
+
         let hadV = this.adjacencyTable.get(u)!.delete(v);
 
         if(this.adjacencyTable.get(u)!.size === 0)

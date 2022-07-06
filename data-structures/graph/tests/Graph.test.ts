@@ -262,6 +262,10 @@ describe('Graph', () => {
             g.deleteEdge(2, 4);
             expect(g.getVertexList()).toEqual([1, 2, 3, 4, 5]);
         });
+
+        it('should return false if the source vertex has no neighbors', () => {
+            expect(g.deleteEdge(4, 5)).toBe(false);
+        });
     });
 
     describe('getWeight', () => {
