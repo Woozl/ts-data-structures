@@ -84,6 +84,12 @@ export default class Graph<T> {
         return res;
     }
 
+    getVertexList(): T[] {
+        const res: T[] = [];
+        this.adjacencyTable.forEach((_, sourceNode) => res.push(sourceNode));
+        return res;
+    }
+
     print(printWeight = false) {
         this.adjacencyTable.forEach((destTable, sourceNode) => {
             let str = `${sourceNode} → `;
