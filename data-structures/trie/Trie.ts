@@ -92,4 +92,58 @@ export default class Trie {
 
         return true;
     }
+
+    /**
+     * Pretty prints the tree. Asterisks represent
+     * end of key.
+     * @example
+     * Trie containing 'app', 'apple', 'answer', and 'any'
+     * ```txt
+     * ╰── root
+     *      ╰── a
+     *          ├── p
+     *          │   ╰── p*
+     *          │       ╰── l
+     *          │           ╰── e*
+     *          ╰── n
+     *              ├── s
+     *              │   ╰── w
+     *              │       ╰── e
+     *              │           ╰── r*
+     *              ╰── y*
+     * ```
+     */
+    print() {
+        const printTree = (node: TrieNode | null, prefix: string, last: boolean, c: string) => {
+            if(node !== null) {
+
+                let printString = prefix;
+                if(last) {
+                    printString += "╰── ";
+                    prefix += "    ";
+                } else {
+                    printString += "├── ";
+                    prefix += "│   ";
+                }
+                console.log(printString + c);
+
+                let numChildren = node.children.size;
+                if(numChildren > 0) {
+                    for(const child of node.children) {
+                        --numChildren;
+
+                        if(numChildren === 0) // change to curved bracket for final child
+                            printTree(child[1], prefix, true, `${child[0]}${child[1].isEndOfWord ? '*' : ''}`);
+                        else
+                            printTree(child[1], prefix, false, `${child[0]}${child[1].isEndOfWord ? '*' : ''}`);
+                    }
+                }
+                else {
+                    return;
+                }
+            }
+        }
+        
+        printTree(this.root, '', true, 'root');   
+    }
 }

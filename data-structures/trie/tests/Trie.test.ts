@@ -145,4 +145,41 @@ describe('Trie', () => {
             expect(t.hasPrefix('apple')).toBe(false);
         });
     });
+
+    describe('print', () => {
+        it('should log a prettyprinted version of the Trie', () => {
+            t.insert('stable');
+            t.insert('stab');
+            t.insert('star');
+            t.insert('stew');
+            t.insert('apple');
+            t.insert('app');
+
+            const logSpy = jest.spyOn(console, 'log');
+
+            t.print();
+
+            expect(logSpy).toHaveBeenCalledWith('╰── root');
+            expect(logSpy).toHaveBeenCalledWith('    ├── s');
+            expect(logSpy).toHaveBeenCalledWith('    │   ╰── t');
+            expect(logSpy).toHaveBeenCalledWith('    │       ├── a');
+            expect(logSpy).toHaveBeenCalledWith('    │       │   ├── b*');
+            expect(logSpy).toHaveBeenCalledWith('    │       │   │   ╰── l');
+            expect(logSpy).toHaveBeenCalledWith('    │       │   │       ╰── e*');
+            expect(logSpy).toHaveBeenCalledWith('    │       │   ╰── r*');
+            expect(logSpy).toHaveBeenCalledWith('    │       ╰── e');
+            expect(logSpy).toHaveBeenCalledWith('    │           ╰── w*');
+            expect(logSpy).toHaveBeenCalledWith('    ╰── a');
+            expect(logSpy).toHaveBeenCalledWith('        ╰── p');
+            expect(logSpy).toHaveBeenCalledWith('            ╰── p*');
+            expect(logSpy).toHaveBeenCalledWith('                ╰── l');
+            expect(logSpy).toHaveBeenCalledWith('                    ╰── e*');
+        });
+
+        it('should print an empty Trie', () => {
+            const logSpy = jest.spyOn(console, 'log');
+            t.print();
+            expect(logSpy).toHaveBeenCalledWith('╰── root');           
+        });
+    });
 });
