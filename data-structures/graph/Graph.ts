@@ -63,9 +63,9 @@ export default class Graph<T> {
         return this.adjacencyTable.get(u)?.get(v) ?? null;
     }
 
-    getNeighbors(v: T): T[] {
+    getNeighbors(v: T): T[] | null {
         if(!this.adjacencyTable.has(v))
-            return [];
+            return null;
 
         const res: T[] = [];
         this.adjacencyTable.get(v)?.forEach((_, node) => res.push(node));
