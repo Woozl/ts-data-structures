@@ -68,7 +68,7 @@ export default class Graph<T> {
             return [];
 
         const res: T[] = [];
-        this.adjacencyTable.get(v)!.forEach((_, node) => res.push(node));
+        this.adjacencyTable.get(v)?.forEach((_, node) => res.push(node));
         return res;
     }
 
