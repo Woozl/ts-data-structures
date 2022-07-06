@@ -359,6 +359,10 @@ describe('Graph', () => {
     });
 
     describe('print', () => {
+        let logSpy: jest.SpyInstance;
+        beforeEach(() => {logSpy = jest.spyOn(console, 'log')});
+        afterEach(() => jest.clearAllMocks());
+        
         it('should pretty-print the graph', () => {
             g.addVertex(1);
             g.addVertex(2);
@@ -366,8 +370,6 @@ describe('Graph', () => {
             g.addEdge(1, 2);
             g.addEdge(1, 3);
             g.addEdge(3, 1);
-
-            const logSpy = jest.spyOn(console, 'log');
         
             g.print();
 
@@ -384,8 +386,6 @@ describe('Graph', () => {
             g.addEdge(2, 1, 342);
             g.addEdge(3, 2, 135);
 
-            const logSpy = jest.spyOn(console, 'log');
-        
             g.print(true);
 
             expect(logSpy).toHaveBeenCalledWith(`1 → [1:230]`);
@@ -394,8 +394,6 @@ describe('Graph', () => {
         });
 
         it('should not print anything if the graph is empty', () => {
-            const logSpy = jest.spyOn(console, 'log');
-        
             g.print();
 
             expect(logSpy).not.toHaveBeenCalled();
