@@ -283,6 +283,12 @@ describe('Graph', () => {
             expect(g.getWeight(1, 2)).toBeNull();
             expect(g.getWeight(2, 1)).toBeNull();
         });
+
+        it('should return null if there is no edge between two vertices', () => {
+            g.addVertex(1);
+            g.addVertex(2);
+            expect(g.getWeight(1, 2));
+        });
     });
 
     describe('getNeighbors', () => {
